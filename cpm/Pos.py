@@ -30,7 +30,7 @@ def verifyPassword(email,password):
     req=httpx.post(uri,data=json.dumps(data),headers=Vheader)
     if req.status_code==200:
         ress=json.loads(req.text)
-        print(ress)
+        print(f"verifyPassword : {len(ress)}")
         Vdata["idToken"]=ress["idToken"]
 def getAccountInfo():
     uri=f"https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key={Vdata['key']}"
@@ -38,7 +38,7 @@ def getAccountInfo():
     req=httpx.post(uri,data=json.dumps(data),headers=Vheader)
     if req.status_code==200:
         ress=json.loads(req.text)
-        print(ress)
+        print(f"getAccountInfo : {len(ress)}")
 def GetPlayerRecords():
     uri=f"https://{Vhost}/GetPlayerRecords2"
     heder={
@@ -56,8 +56,29 @@ def GetPlayerRecords():
         resss=json.loads(ress["result"])
         with open('data.json', 'w', encoding='utf-8') as f:
             json.dump({"data":resss}, f, ensure_ascii=False, indent=4)
-        print(resss)
+        print(f"Data Player : {len(resss)}")
+        print(resss["Name"])
+        print(resss["localID"])
+def GetCarHash():
+    uri=f"https://{Vhost}/GetCarHash"
+    heder={
+        "Host":Vhost,
+        "authorization":f'Bearer {Vdata["idToken"]}',
+        "firebase-instance-id-token":Vdata["firebase-instance-id-token"],
+        "content-type":"application/json; chatset=utf-8",
+        "accept-encoding":"gzip",
+        "User-Agent": f"Dalvik/2.1.0 (Linux; U; Android 8.1.0; ASUS_X00TD MIUI/16.2017.2009.087-20{rdm.randint(111111,999999)})"
+    }
+    data={"data":""}
+    req=httpx.post(uri,data=json.dumps(data),headers=heder)
+    if req.status_code==200:
+        ress=json.loads(req.text)
+        resss=json.loads(ress["result"])
+        with open('carhash.json', 'w', encoding='utf-8') as f:
+            json.dump({"result":resss}, f, ensure_ascii=False, indent=4)
+        print(f"Car Hash : {len(resss)}")
 def SavePlayerRecords7():
+    print("Save Account Info")
     with open('data.json', 'r') as openfile:
         dataakun = json.load(openfile)
     uri=f"https://{Vhost}/SavePlayerRecords7"
@@ -78,4 +99,25 @@ def SavePlayerRecords7():
         ress=json.loads(req.text)
         resss=json.loads(ress["result"])
         return resss
-
+def SaveCarHash():
+    print("Save Car Hash")
+    with open('carhash.json', 'r') as openfile:
+        dataakun = json.load(openfile)
+    uri=f"https://{Vhost}/SaveCarHash"
+    heder={
+        "Host":Vhost,
+        "authorization":f'Bearer {Vdata["idToken"]}',
+        "firebase-instance-id-token":Vdata["firebase-instance-id-token"],
+        "content-type":"application/json; chatset=utf-8",
+        "accept-encoding":"gzip",
+        "User-Agent": f"Dalvik/2.1.0 (Linux; U; Android 8.1.0; ASUS_X00TD MIUI/16.2017.2009.087-20{rdm.randint(111111,999999)})"
+    }
+    pipit=json.dumps(dataakun["result"])
+    data={"data":pipit}
+    req=httpx.post(uri,data=json.dumps(data),headers=heder)
+    # print(req.status_code)
+    # print(req.text)
+    if req.status_code==200:
+        ress=json.loads(req.text)
+        resss=json.loads(ress["result"])
+        return resss
