@@ -77,10 +77,8 @@ def GetCarHash():
         with open('carhash.json', 'w', encoding='utf-8') as f:
             json.dump({"result":resss}, f, ensure_ascii=False, indent=4)
         print(f"Car Hash : {len(resss)}")
-def SavePlayerRecords7():
+def SavePlayerRecords7(dataakun):
     print("Save Account Info")
-    with open('data.json', 'r') as openfile:
-        dataakun = json.load(openfile)
     uri=f"https://{Vhost}/SavePlayerRecords7"
     heder={
         "Host":Vhost,
@@ -98,11 +96,11 @@ def SavePlayerRecords7():
     if req.status_code==200:
         ress=json.loads(req.text)
         resss=json.loads(ress["result"])
-        return resss
-def SaveCarHash():
+        # print(resss)
+        return True
+    return False
+def SaveCarHash(dataakun):
     print("Save Car Hash")
-    with open('carhash.json', 'r') as openfile:
-        dataakun = json.load(openfile)
     uri=f"https://{Vhost}/SaveCarHash"
     heder={
         "Host":Vhost,
@@ -112,7 +110,7 @@ def SaveCarHash():
         "accept-encoding":"gzip",
         "User-Agent": f"Dalvik/2.1.0 (Linux; U; Android 8.1.0; ASUS_X00TD MIUI/16.2017.2009.087-20{rdm.randint(111111,999999)})"
     }
-    pipit=json.dumps(dataakun["result"])
+    pipit=json.dumps(dataakun)
     data={"data":pipit}
     req=httpx.post(uri,data=json.dumps(data),headers=heder)
     # print(req.status_code)
@@ -120,4 +118,45 @@ def SaveCarHash():
     if req.status_code==200:
         ress=json.loads(req.text)
         resss=json.loads(ress["result"])
-        return resss
+        # print(resss)
+        return True
+    return False
+
+def SaveCars(data):
+    print("Save Cars")
+    uri=f"https://{Vhost}/SaveCars"
+    heder={
+        "Host":Vhost,
+        "authorization":f'Bearer {Vdata["idToken"]}',
+        "firebase-instance-id-token":Vdata["firebase-instance-id-token"],
+        "content-type":"application/json; chatset=utf-8",
+        "accept-encoding":"gzip",
+        "User-Agent": f"Dalvik/2.1.0 (Linux; U; Android 8.1.0; ASUS_X00TD MIUI/16.2017.2009.087-20{rdm.randint(111111,999999)})"
+    }
+    # pipit=json.dumps(data["data"])
+    data=json.dumps(data)
+    print(json.load(data["data"]))
+    req=httpx.post(uri,data=data,headers=heder)
+    print(req.status_code)
+    print(req.text)
+    if req.status_code==200:
+        ress=json.loads(req.text)
+        resss=json.loads(ress["result"])
+        # print(resss)
+        return True
+    return False
+
+
+
+
+
+def signupNewUser(email,password):
+    uri=f"https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key={Vdata['key']}"
+    data={"email":email,"password":password}
+    req=httpx.post(uri,data=json.dumps(data),headers=Vheader)
+    if req.status_code==200:
+        ress=json.loads(req.text)
+        print(f"signupNewUser : {len(ress)}")
+        Vdata["idToken"]=ress["idToken"]
+        return True
+    return False
