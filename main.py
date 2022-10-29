@@ -100,6 +100,10 @@ number (x exit): """
 5. edit player cars
 6. unlock klakson
 7. inject livery car
+8. edit money
+9. edit coin
+10. edit ID
+11. reset animation
 number (x exit): """
             
             while True:
@@ -268,6 +272,37 @@ choice :
                                 else: disp="Gagal"
                             except:
                                 print(f"Belum punya data livery mobil ke {urutcar}")
+                elif inp=="8":
+                    print("=================== GetPlayerRecords")
+                    cpm.GetPlayerRecords()
+                    muniy=input("Money : ")
+                    with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
+                    data["data"]["money"]=int(muniy)
+                    if cpm.SavePlayerRecords7(data): disp="Sukses"
+                    else: disp="Gagal"
+                elif inp=="9":
+                    print("=================== GetPlayerRecords")
+                    cpm.GetPlayerRecords()
+                    muniy=input("Coin : ")
+                    with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
+                    data["data"]["coin"]=int(muniy)
+                    if cpm.SavePlayerRecords7(data): disp="Sukses"
+                    else: disp="Gagal"
+                elif inp=="10":
+                    print("=================== GetPlayerRecords")
+                    cpm.GetPlayerRecords()
+                    muniy=input("localID : ")
+                    with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
+                    data["data"]["localID"]=int(muniy)
+                    if cpm.SavePlayerRecords7(data): disp="Sukses"
+                    else: disp="Gagal"
+                elif inp=="11":
+                    print("=================== GetPlayerRecords")
+                    cpm.GetPlayerRecords()
+                    with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
+                    data["data"]["animations"]=[]
+                    if cpm.SavePlayerRecords7(data): disp="Sukses"
+                    else: disp="Gagal"
 
         elif inp=="2":
             print("Create Account")
