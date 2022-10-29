@@ -27,3 +27,4 @@ hasil.sort(key=lambda x: x.get('urutan'))
 print(hasil)
 for hsl in hasil:
     print(f"{hsl}")
+input()

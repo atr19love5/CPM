@@ -33,6 +33,7 @@ def verifyPassword(email,password):
         print(f"verifyPassword : {len(ress)}")
         Vdata["idToken"]=ress["idToken"]
         # print(Vdata["idToken"])
+        return True
 def getAccountInfo():
     uri=f"https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key={Vdata['key']}"
     data={"idToken":Vdata["idToken"]}
@@ -60,6 +61,8 @@ def GetPlayerRecords():
         print(f"Data Player : {len(resss)}")
         print(f' >> Nickname : {resss["Name"]}')
         print(f' >> ID       : {resss["localID"]}')
+        print(f' >> Money    : {resss["money"]}')
+        print(f' >> Coin     : {resss["coin"]}')
 def GetCarHash():
     uri=f"https://{Vhost}/GetCarHash"
     heder={

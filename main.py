@@ -2,6 +2,21 @@ import os,json,random,shutil,time,sys
 import cpm as cpm
 
 
+def tes():
+    pass
+# while True:
+#     tes()
+#     input()
+# exit()
+
+
+def randomcolorname(nama):
+    chars = '0123456789ABCDEF'
+    generatecolor=[''.join(random.sample(chars,6)) for i in range(len(nama))]
+    resultname=""
+    for i in range(len(nama)):
+        resultname+=f"[{generatecolor[i]}]{nama[i:i+1]}"
+    return resultname
 def cariid(urutan):
     with open('nomer_car.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
     for mydatacar in data["result"]:
@@ -44,16 +59,6 @@ def savewscar(carid,data):
         json.dump(dataforsave, f, ensure_ascii=False, indent=4)
     return datacarname
 
-def tes():
-    datacar=json.dumps(json.loads(datay["result"]),indent=2)
-    datacar=json.loads(datacar)
-    savewscar(datacar["carID"],datacar)
-# while True:
-#     tes()
-#     input()
-# exit()
-
-
 
 
 
@@ -79,7 +84,9 @@ number (x exit): """
 
         elif inp=="1":
             print("=================== verifyPassword")
-            cpm.verifyPassword(input("email : "),input("password : "))
+            while True:
+                teslogin=cpm.verifyPassword(input("email : "),input("password : "))
+                if teslogin!=None:break
             print("=================== getAccountInfo")
             cpm.getAccountInfo()
             print("=================== GetPlayerRecords")
@@ -310,6 +317,7 @@ choice :
                 with open('data_basic.json', 'r') as openfile:
                     data = json.load(openfile)
                 data["data"]["localID"]="TSB"+str(random.randint(11111,99999))
+                data["data"]["Name"]=randomcolorname("Subscribe YT TopixSB & DragChannel")
                 with open('carhash_basic.json', 'r') as openfile:
                     datacar = json.load(openfile)
                 if cpm.SavePlayerRecords7(data) and cpm.SaveCarHash(datacar):
