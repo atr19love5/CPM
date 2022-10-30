@@ -302,7 +302,7 @@ choice :
                     cpm.GetPlayerRecords()
                     muniy=input("localID : ")
                     with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
-                    data["data"]["localID"]=int(muniy)
+                    data["data"]["localID"]=muniy
                     if cpm.SavePlayerRecords7(data): disp="Sukses"
                     else: disp="Gagal"
                 elif inp=="11":
