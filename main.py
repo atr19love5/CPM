@@ -48,7 +48,7 @@ def savewscar(carid,data):
             datacarname=f"{carid}_"+str(itrliverydata)
             itrliverydata+=1
                 
-        time.sleep(1)
+        time.sleep(0.2)
     print(f"bisa di save {datacarname}")
     dataforsave={
         "data":data["thisCarData"]
@@ -111,6 +111,7 @@ number (x exit): """
 9. edit coin
 10. edit ID
 11. reset animation
+12. reset friend list
 number (x exit): """
             
             while True:
@@ -174,7 +175,8 @@ number (x exit): """
                             idxsale=0
                             if len(klp)>1:
                                 for tyy in klp:
-                                    print(f"{idxsale} - {len(klp)}")
+                                    print(f">>>>>>>>>>>>>>>>>>>>>>>>>>>>>[ {idxsale} / {len(klp)} ]")
+                                    time.sleep(0.5)
                                     if idxsale==0:
                                         aitem=tyy+"}"
                                     elif idxsale==len(klp)-1:
@@ -209,7 +211,7 @@ number (x exit): """
                             else:
                                 pass
                                 # print(f"Len klp : {len(klp)}")
-                        for tunggu in range(60,0,-1):
+                        for tunggu in range(300,0,-1):
                             sys.stdout.write(f" wait {tunggu} \r")
                             sys.stdout.flush()
                             time.sleep(1)
@@ -308,6 +310,13 @@ choice :
                     cpm.GetPlayerRecords()
                     with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
                     data["data"]["animations"]=[]
+                    if cpm.SavePlayerRecords7(data): disp="Sukses"
+                    else: disp="Gagal"
+                elif inp=="12":
+                    print("=================== Reset Friend List")
+                    cpm.GetPlayerRecords()
+                    with open('player/data.json', 'r',encoding='utf-8') as openfile: data = json.load(openfile)
+                    data["data"]["FriendsID"]=[]
                     if cpm.SavePlayerRecords7(data): disp="Sukses"
                     else: disp="Gagal"
 

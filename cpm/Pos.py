@@ -144,6 +144,7 @@ def SaveCars(data):
     if req.status_code==200:
         ress=json.loads(req.text)
         resss=json.loads(ress["result"])
+        # print(resss)
         return True
     print(req.status_code)
     print(req.text)
