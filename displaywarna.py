@@ -2,26 +2,26 @@
 from colr import color
 
 
-def disp(nama):
-    firsttime = True
-    Vnama = nama.split("[")
-    disps = Vnama[0]
-    for x in Vnama:
-        if firsttime == False:
-            code1 = f"{x[0:2]}"
-            code2 = f"{x[2:4]}"
-            code3 = f"{x[4:6]}"
-            code1 = (int(code1, 16))
-            code2 = (int(code2, 16))
-            code3 = (int(code3, 16))
-            huruf = x[7:8]
-            disps += color(huruf,
-                           fore=(code1,
-                                 code2,
-                                 code3),
-                           back=(0, 0, 0))
-        if firsttime:
-            firsttime = False
+def disp(clrnama):
+    clrfirsttime = True
+    clrVnama = clrnama.split("[")
+    clrdisps = clrVnama[0]
+    for clrx in clrVnama:
+        if clrfirsttime == False:
+            clrcode1 = f"{clrx[0:2]}"
+            clrcode2 = f"{clrx[2:4]}"
+            clrcode3 = f"{clrx[4:6]}"
+            clrcode1 = (int(clrcode1, 16))
+            clrcode2 = (int(clrcode2, 16))
+            clrcode3 = (int(clrcode3, 16))
+            clrhuruf = clrx[7:8]
+            clrdisps += color(clrhuruf,
+                              fore=(clrcode1,
+                                    clrcode2,
+                                    clrcode3),
+                              back=(0, 0, 0))
+        if clrfirsttime:
+            clrfirsttime = False
 
-    disps += Vnama[len(Vnama)-1][8:len(Vnama[len(Vnama)-1])]
-    return(disps)
+    clrdisps += clrVnama[len(clrVnama)-1][8:len(clrVnama[len(clrVnama)-1])]
+    return(clrdisps)

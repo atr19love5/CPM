@@ -7,7 +7,6 @@ import sys
 import NamaBerwarna
 import displaywarna
 import cpm as cpm
-from tqdm import tqdm
 from colr import color
 
 
@@ -28,13 +27,7 @@ def c(colr, tex):
 
 
 def tes():
-    carid = [0, 1, 10, 100, 101, 102, 44, 45, 46, 47, 48, 49, 5, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 6, 60, 61, 62, 63, 64, 65, 66, 67,
-             68, 69, 7, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 8, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 9, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
-    for itr, isi in enumerate(tqdm(carid)):
-        print(f"[{yow} - {x}]")
-        time.sleep(1)
-
-
+    pass
 # while True:
 #     tes()
 #     input()
@@ -203,8 +196,9 @@ number (x exit): """
                     path = "cpm/cars/mod/"
                     dir_list = os.listdir(path)
                     dir_list = sorted(dir_list, key=len, reverse=False)
-                    print(f"  >> Inject Car")
-                    for x, idcar in enumerate(tqdm(dir_list)):
+                    for idcar in dir_list:
+                        sys.stdout.write(f"  >> Inject Car id [{idcar}]    \r")
+                        sys.stdout.flush()
                         with open(f'cpm/cars/mod/{idcar}', 'r', encoding='utf-8') as openfile:
                             datacar = json.load(openfile)
                         if cpm.SaveCars(datacar):
