@@ -7,6 +7,7 @@ import sys
 import NamaBerwarna
 import displaywarna
 import cpm as cpm
+from tqdm import tqdm
 from colr import color
 
 
@@ -27,21 +28,17 @@ def c(colr, tex):
 
 
 def tes():
-    pass
+    carid = [0, 1, 10, 100, 101, 102, 44, 45, 46, 47, 48, 49, 5, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 6, 60, 61, 62, 63, 64, 65, 66, 67,
+             68, 69, 7, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 8, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 9, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
+    for itr, isi in enumerate(tqdm(carid)):
+        print(f"[{yow} - {x}]")
+        time.sleep(1)
+
+
 # while True:
 #     tes()
 #     input()
 # exit()
-
-
-def randomcolorname(nama):
-    chars = '0123456789ABCDEF'
-    generatecolor = [''.join(random.sample(chars, 6))
-                     for i in range(len(nama))]
-    resultname = ""
-    for i in range(len(nama)):
-        resultname += f"[{generatecolor[i]}]{nama[i:i+1]}"
-    return resultname
 
 
 def cariid(urutan):
@@ -125,7 +122,6 @@ number (x exit): """
             cpm.getAccountInfo()
             print(c("cyan", "=================== GetPlayerRecords"))
             vrs = cpm.GetPlayerRecords()
-
             print(c("cyan", "=================== TestGetAllCars"))
             shutil.rmtree('player/cars')
             os.mkdir('player/cars')
@@ -206,10 +202,9 @@ number (x exit): """
 
                     path = "cpm/cars/mod/"
                     dir_list = os.listdir(path)
-                    print("Files and directories in '", path, "' :")
                     dir_list = sorted(dir_list, key=len, reverse=False)
-                    for idcar in dir_list:
-                        print(f"  >> Inject Car id [{idcar}]")
+                    print(f"  >> Inject Car")
+                    for x, idcar in enumerate(tqdm(dir_list)):
                         with open(f'cpm/cars/mod/{idcar}', 'r', encoding='utf-8') as openfile:
                             datacar = json.load(openfile)
                         if cpm.SaveCars(datacar):
@@ -443,8 +438,20 @@ choice :
                     data = json.load(openfile)
                 data["data"]["localID"] = "TSB" + \
                     str(random.randint(11111, 99999))
-                data["data"]["Name"] = randomcolorname(
-                    "Subscribe YT TopixSB & DragChannel")
+
+                print(c("red", "=============================="))
+                try:
+                    print(
+                        f' >> Nickname : {displaywarna.disp(data["data"]["Name"])}')
+                except:
+                    print(f' >> Nickname : {data["data"]["Name"]}')
+                try:
+                    print(f' >> ID       : {data["data"]["localID"]}')
+                    print(f' >> Money    : {data["data"]["money"]}')
+                    print(f' >> Coin     : 0')
+                except:
+                    print("Data sebagian belum ada")
+                print(c("red", "=============================="))
                 with open('carhash_basic.json', 'r') as openfile:
                     datacar = json.load(openfile)
                 if cpm.SavePlayerRecords7(data) and cpm.SaveCarHash(datacar):
