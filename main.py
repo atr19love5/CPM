@@ -134,7 +134,8 @@ number (x exit): """
             except:
                 print("Data sebagian belum ada")
             print(c("red", "=============================="))
-            menusedit = """1. manual edit save
+            menusedit = """Enter To Show Information
+1. manual edit save
 2. inject mod
 3. change cars to mod/ori
 4. World Sale
@@ -155,6 +156,24 @@ number (x exit): """
                 inp = input(menusedit)
                 if inp == "x" or inp == "X":
                     break
+                elif inp == "":
+                    print(c("cyan", "=================== GetPlayerRecords"))
+                    vrs = cpm.GetPlayerRecords()
+                    time.sleep(1)
+                    with open('player/data.json', 'r', encoding='utf-8') as openfile:
+                        data = json.load(openfile)
+                    print(c("cyan", "==========[ INFO ]==========="))
+                    try:
+                        print(f' >> Nickname : {displaywarna.disp(vrs["Name"])}')
+                    except:
+                        print(f' >> Nickname : {vrs["Name"]}')
+                    try:
+                        print(f' >> ID       : {vrs["localID"]}')
+                        print(f' >> Money    : {vrs["money"]}')
+                        print(f' >> Coin     : {vrs["coin"]}')
+                    except:
+                        print("Data sebagian belum ada")
+                    print(c("cyan", "=============================="))
                 elif inp == "1":
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
@@ -167,7 +186,7 @@ number (x exit): """
                         disp = "Gagal"
                 elif inp == "2":
                     print(c("cyan", "=================== GetPlayerRecords"))
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
                     with open('data_mod.json', 'r', encoding='utf-8') as openfile:
@@ -331,7 +350,7 @@ choice :
                             disp = "Gagal"
                 elif inp == "6":
                     print(c("cyan", "=================== GetPlayerRecords"))
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
                     data["data"]["floats"][27] = 1
@@ -363,7 +382,7 @@ choice :
                                     f"Belum punya data livery mobil ke {urutcar}")
                 elif inp == "8":
                     print(c("cyan", "=================== GetPlayerRecords"))
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     muniy = input("Money : ")
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
@@ -374,7 +393,7 @@ choice :
                         disp = "Gagal"
                 elif inp == "9":
                     print(c("cyan", "=================== GetPlayerRecords"))
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     muniy = input("Coin : ")
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
@@ -385,7 +404,7 @@ choice :
                         disp = "Gagal"
                 elif inp == "10":
                     print(c("cyan", "=================== GetPlayerRecords"))
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     muniy = input("localID : ")
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
@@ -396,7 +415,7 @@ choice :
                         disp = "Gagal"
                 elif inp == "11":
                     print(c("cyan", "=================== GetPlayerRecords"), 0)
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
                     data["data"]["animations"] = []
@@ -406,7 +425,7 @@ choice :
                         disp = "Gagal"
                 elif inp == "12":
                     print(c("cyan", "=================== Reset Friend List"))
-                    cpm.GetPlayerRecords()
+                    vrs = cpm.GetPlayerRecords()
                     with open('player/data.json', 'r', encoding='utf-8') as openfile:
                         data = json.load(openfile)
                     data["data"]["FriendsID"] = []
@@ -421,7 +440,7 @@ choice :
                     data["data"]["Name"] = NamaBerwarna.generate()
                     if cpm.SavePlayerRecords7(data):
                         disp = "Sukses"
-                        cpm.GetPlayerRecords()
+                        vrs = cpm.GetPlayerRecords()
                     else:
                         disp = "Gagal"
 
