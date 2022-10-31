@@ -65,13 +65,7 @@ def GetPlayerRecords():
         with open('player/data.json', 'w', encoding='utf-8') as f:
             json.dump({"data": resss}, f, ensure_ascii=False, indent=4)
         print(f"Data Player : {len(resss)}")
-        print(f' >> Nickname : {resss["Name"]}')
-        try:
-            print(f' >> ID       : {resss["localID"]}')
-            print(f' >> Money    : {resss["money"]}')
-            print(f' >> Coin     : {resss["coin"]}')
-        except:
-            print("Data sebagian belum ada")
+        return resss
 
 
 def GetCarHash():
@@ -243,4 +237,5 @@ def signupNewUser(email, password):
         print(f"signupNewUser : {len(ress)}")
         Vdata["idToken"] = ress["idToken"]
         return True
+    print(req.text)
     return False
