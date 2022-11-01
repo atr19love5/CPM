@@ -27,7 +27,20 @@ def c(colr, tex):
 
 
 def tes():
-    pass
+    import math
+    with open('player/cars/13', 'r', encoding='utf-8') as openfile:
+        data = json.load(openfile)
+    print(data["data"]["floats"])
+    print()
+    data["data"]["floats"][7] = -math.inf
+    print(data["data"]["floats"])
+    print()
+    if cpm.SaveCars(data):
+        disp = "Sukses"
+    else:
+        disp = "Gagal"
+
+
 # while True:
 #     tes()
 #     input()
@@ -164,7 +177,8 @@ number (x exit): """
                         data = json.load(openfile)
                     print(c("cyan", "==========[ INFO ]==========="))
                     try:
-                        print(f' >> Nickname : {displaywarna.disp(vrs["Name"])}')
+                        print(
+                            f' >> Nickname : {displaywarna.disp(vrs["Name"])}')
                     except:
                         print(f' >> Nickname : {vrs["Name"]}')
                     try:
@@ -248,6 +262,7 @@ number (x exit): """
                             klp = xpo.strip('][').split('},{')
                             idxsale = 0
                             if len(klp) > 1:
+                                carGid = []
                                 for tyy in klp:
                                     print(
                                         f">>>>>>>>>>>>>>>>>>>>>>>>>>>>>[ {idxsale} / {len(klp)} ]")
@@ -260,6 +275,11 @@ number (x exit): """
                                         aitem = "{"+tyy+"}"
                                     try:
                                         caitem = json.loads(aitem)
+                                        if caitem["ownerAccountID"] not in carGid:
+                                            carGid.append(
+                                                caitem["ownerAccountID"])
+                                        else:
+                                            break
                                         print(
                                             "<<------------------------------------>>")
                                         for itemv in caitem:
@@ -294,22 +314,20 @@ number (x exit): """
                                                 disp = "Gagal"
                                     except:
                                         print(f"gagal ambil item : {aitem}")
+                                time.sleep(1)
                             else:
                                 pass
                                 # print(f"Len klp : {len(klp)}")
-                        for tunggu in range(300, 0, -1):
+                        for tunggu in range(50, 0, -1):
                             sys.stdout.write(f" wait {tunggu} \r")
                             sys.stdout.flush()
                             time.sleep(1)
                 elif inp == "5":
                     dir_list = sorted(os.listdir(
-                        "cpm/cars/livery/"), key=len, reverse=False)
-                    itrlivery = 1
-                    print("\n  [ Urutan Livery yang tersedia ]")
+                        "player/cars/"), key=len, reverse=False)
+                    print("\n  [ Urutan Cars yang tersedia ]")
                     for idnya in dir_list:
-                        if "_" not in idnya:
-                            print(f"  {itrlivery}. {cariurutan(idnya)}")
-                        itrlivery += 1
+                        print(f"{cariurutan(idnya)}")
                     urutcar = input("\nurutan car : ")
                     idcar = cariid(int(urutcar))
                     if idcar == None:
@@ -319,13 +337,14 @@ number (x exit): """
                         with open(f'player/cars/{idcar}', 'r', encoding='utf-8') as openfile:
                             datacar = json.load(openfile)
                         menuscar = """
-                
+
      [ Menu Edit ]
 x to save
 1. Police on
 2. Police off
 3. Timpa pakai livery
-choice : 
+4. Bongkar Spek
+choice :
 """
 
                         while True:
@@ -343,6 +362,23 @@ choice :
                                 except:
                                     print(
                                         f"Belum punya data livery mobil ke {urutcar}")
+                            elif caredit == "4":
+                                print("mulai dari HP")
+                                datacar["data"]["floats"][1] = float(
+                                    input("HP\t:"))
+                                datacar["data"]["floats"][2] = float(
+                                    input("inner HP\t:"))
+                                datacar["data"]["floats"][3] = float(
+                                    input("NM\t:"))
+                                datacar["data"]["floats"][4] = float(
+                                    input("inner NM\t:"))
+
+                                datacar["data"]["floats"][7] = float(
+                                    input("Grip\t:"))
+
+                                with open(f'player/cars/{idcar}', 'w', encoding='utf-8') as f:
+                                    json.dump(
+                                        datacar, f, ensure_ascii=False, indent=4)
 
                         if cpm.SaveCars(datacar):
                             disp = "Sukses"
