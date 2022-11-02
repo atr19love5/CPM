@@ -27,18 +27,7 @@ def c(colr, tex):
 
 
 def tes():
-    import math
-    with open('player/cars/13', 'r', encoding='utf-8') as openfile:
-        data = json.load(openfile)
-    print(data["data"]["floats"])
-    print()
-    data["data"]["floats"][7] = -math.inf
-    print(data["data"]["floats"])
-    print()
-    if cpm.SaveCars(data):
-        disp = "Sukses"
-    else:
-        disp = "Gagal"
+    pass
 
 
 # while True:
@@ -400,22 +389,29 @@ choice :
                     else:
                         disp = "Gagal"
                 elif inp == "7":
+                    modeliv=input("modeliv : ")
                     dir_list = os.listdir("cpm/cars/livery/")
                     dir_list.sort(key=int)
+                    terdesign=0
                     for idcar in dir_list:
-                        if "_" not in idcar:
-                            try:
+                        if modeliv!="":
+                            if "_" in idcar:
+                                if idcar.split("_")[1]==modeliv:
+                                    print(idcar)
+                                    with open(f'cpm/cars/livery/{idcar}', 'r', encoding='utf-8') as openfile:
+                                        datacar = json.load(openfile)
+                                    datacar["data"]["floats"][0] = 1
+                                    if cpm.SaveCars(datacar)==True:
+                                        terdesign+=1
+                        else:
+                            if "_" not in idcar:
                                 print(idcar)
                                 with open(f'cpm/cars/livery/{idcar}', 'r', encoding='utf-8') as openfile:
                                     datacar = json.load(openfile)
                                 datacar["data"]["floats"][0] = 1
-                                if cpm.SaveCars(datacar):
-                                    disp = "Sukses"
-                                else:
-                                    disp = "Gagal"
-                            except:
-                                print(
-                                    f"Belum punya data livery mobil ke {urutcar}")
+                                if cpm.SaveCars(datacar)==True:
+                                    terdesign+=1
+                    print(f"Livery yang terpasang : {terdesign}")
                 elif inp == "8":
                     print(c("cyan", "=================== GetPlayerRecords"))
                     vrs = cpm.GetPlayerRecords()

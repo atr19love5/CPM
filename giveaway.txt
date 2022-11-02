@@ -1,14 +1,10 @@
- Email : dragpix1@gmail.com
- Password : drag01
- 
- Email : dragpix2@gmail.com
- Password : pixdrag
 
- Email : lele@topixsb.com
- Password : ikanlele
+ Email : apel@topixsb.com
+ Password : buahapel
 
- Email : nila@topixsb.com
- Password : ikannila
+ Email : jeruk@topixsb.com
+ Password : buahjeruk
 
- Email : buntal@topixsb.com
- Password : ikanbuntal
+ Email : pepaya@topixsb.com
+ Password : buahpepaya
+
