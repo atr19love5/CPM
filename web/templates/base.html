@@ -5,25 +5,38 @@
     <title>{% block title %}TopixSB{% endblock %}</title>
 </head>
 <body style="background-color:black ; color: #fff;" >
+    <div><center>
+        {% for dt in output%}
+        <span style="color:{{dt[1]}}">{{ dt[0] }}</span>
+        {% endfor %}
+    </center></div>
+    <br/>
+    <br/>
+
+    <form action = './TopixSB' method = post>
+        <fieldset>
+        <legend>TopixSB Tools</legend>
+        {% if message %}
+            <p>Note: {{ message }}</p>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+        
+        </fieldset>
+    </form>
+    <br/>
     <div>
-        <center>
-            <h3 style="color: #0ff;">>> {{ output }}</h3>
-        </center>
+        [ <a style="color:aqua" href="https://www.youtube.com/c/TopixSBofficial/videos">Subscribe</a> ]
+        {% for dt in linkyt %}
+        <span style="color:{{dt[1]}}">{{ dt[0] }}</span>
+        {% endfor %}
+        <br>
+        [ <a style="color:aqua" href="https://www.tiktok.com/@topixsbofficial">Subscribe</a> ]
+        {% for dt in linktiktok %}
+        <span style="color:{{dt[1]}}">{{ dt[0] }}</span>
+        {% endfor %}
     </div>
 
-    <br/>
-    <br/>
-    <form action = './' method = post>
-    <fieldset>
-    <legend>TopixSB Tools</legend>
-    {% if message %}
-        <p>Note: {{ message }}</p>
-    {% endif %}
-
-    {% block content %}
-    {% endblock %}
-    
-    </fieldset>
-    </form>
 </body>
 </html>

@@ -2,14 +2,13 @@
 
 {% block content %}
 <div>
-    {{ form.kode.label() }}
-    {{ form.kode() }}
-    <br>
-    {% for message in form.kode.errors %}
-    <div>{{ message }}</div>
-    {% endfor %}
-    <br>
-    {{ form.hidden_tag() }}
-    {{ form.submit() }}
+    <form action = './TopixSB' method = post>
+        {{ form.cname.label() }}
+        {{ form.cname() }}
+        <br>
+        <br>
+        {{ form.hidden_tag() }}
+        {{ form.submit() }}
+    </form>
 </div>
 {% endblock %}
