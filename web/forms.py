@@ -17,5 +17,5 @@ class Cdata(FlaskForm):
     cmoney = IntegerField('Money')
     ccoin = IntegerField('Coin')
     chorn = BooleanField('Unlock Horn')
-    csirine = BooleanField('Unlock Sirine')
+    # csirine = BooleanField('Unlock Sirine')
     submit = SubmitField("Oke")
