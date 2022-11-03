@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,redirect
+from flask import Flask, render_template, frequest,redirect
 from forms import *
 import httpx,json
 import random as rdm
@@ -111,7 +111,7 @@ def hello():
     formk = Konsol()
 
     vemail , vpassword = forml.email.data,  forml.password.data
-    print(f"em and pw : {vemail} {vpassword} {request.method}")
+    print(f"em and pw : {vemail} {vpassword} {frequest.method}")
     if frequest.method=="POST":
         terisi=False
         if formk.cname!=None:terisi=True
